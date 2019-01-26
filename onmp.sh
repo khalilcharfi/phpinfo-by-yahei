@@ -137,6 +137,7 @@ sed -i 's/exit 0//g' /etc/rc.local
 sed -i '/lnmpdata/d'   /etc/rc.local
 sed -i '/datadir/d'   /etc/rc.local
 echo export datadir=$datadir >> /etc/./rc.local
+echo sleep 240 >> /etc/./rc.local
 echo mount -o bind $datadir /lnmpdata >> /etc/./rc.local
 
 echo exit 0 >> /etc/./rc.local
