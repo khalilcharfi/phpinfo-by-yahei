@@ -512,7 +512,7 @@ chmod 644 /etc/my.cnf
 mkdir -p /var/mysql
 
 # 数据库安装
-/bin/mysql_install_db --user=$username --basedir= --datadir=/var/mysql/
+/usr/bin/mysql_install_db --force
 echo -e "\n正在初始化数据库，请稍等1分钟"
 sleep 20
 
@@ -1183,7 +1183,7 @@ server {
 EOF
 
 sed -e "s/.*listen.*/    listen $1\;/g" -i /etc/nginx/vhost/$2.conf
-sed -e "s/.*\\/lnmpdata/wwwroot\/www\/.*/    root \\/lnmpdata/wwwroot\/$2\/\;/g" -i /etc/nginx/vhost/$2.conf
+sed -e "s/.*\/lnmpdata\/wwwroot\/www\/.*/    root \/lnmpdata\/wwwroot\/$2\/\;/g" -i /etc/nginx/vhost/$2.conf
 }
 
 ############## 网站管理 ##############
