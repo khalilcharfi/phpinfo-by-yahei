@@ -606,8 +606,10 @@ remove_onmp()
 ################ 生成ONMP命令 ###############
 set_onmp_sh()
 {
+rm -rf /bin/onmp.sh
 # 删除
 rm -rf /bin/onmp
+cp onmp.sh /bin/onmp.sh
 
 # 写入文件
 cat > "/bin/onmp" <<-\EOF
@@ -665,7 +667,7 @@ onmp_restart()
 
 case $1 in
     open ) 
-    /onmp/onmp.sh
+    /bin/onmp.sh
     ;;
 
     start )
@@ -754,7 +756,7 @@ HHH
     ;;
 esac
 EOF
-
+chmod +x/bin/onmp.sh
 chmod +x /bin/onmp
 #
 cat << HHH
