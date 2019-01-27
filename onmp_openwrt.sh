@@ -42,7 +42,7 @@ url_Zblog="https://update.zblogcn.com/zip/Z-BlogPHP_1_5_2_1935_Zero.zip"
 
 # (10) DzzOffice (开源办公平台)
 url_DzzOffice="https://codeload.github.com/zyx0814/dzzoffice/zip/master"
-datadir="/mnt/sdb2/lmp"
+datadir="/lmp"
 # 通用环境变量获取
 get_env()
 {
