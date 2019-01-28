@@ -26,7 +26,7 @@ def fetch(url, path = ''):
         os.makedirs(savedir + path)
     print 'fetching package list from ' + url
     content = urllib2.urlopen(url + path, timeout=15).read()
-    items = re.findall(pattern, content)for item in items:
+    items = re.findall(pattern, content) for item in items:
         if item == '../':
             continue
         elif item.endswith('/'):
