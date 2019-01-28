@@ -11,7 +11,8 @@ import urllib2
 import re
 import os
 import time
-
+import sys
+sys.setrecursionlimit(10000)
 # the url of package list page, end with "/"
 baseurl = 'http://downloads.openwrt.org/releases/18.06.1/packages/mipsel_24kc/'
 
