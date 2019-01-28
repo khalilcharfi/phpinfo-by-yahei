@@ -438,6 +438,8 @@ OOO
 
 }
 
+
+
 ############## 重置、初始化MySQL #############
 init_sql()
 {
@@ -450,69 +452,71 @@ init_sql()
     mkdir -p /etc/mysql/
 
 # MySQL设置
-cat > "/etc/my.cnf" <<-\MMM
+cat > "/etc/mysql/my.cnf" <<-\MMM
+
 [client]
-port		= 3306
-socket		= /var/run/mysqld.sock
+port            = 3306
+socket          = /var/run/mysqld/mysqld.sock
 
 [mysqld]
-user		= root
-socket		= /var/run/mysqld.sock
-port		= 3306
-basedir		= /usr
+user            = theOne
+socket          = /var/run/mysqld/mysqld.sock
+port            = 3306
+basedir         = /usr
 
 ############ Don't put this on the NAND #############
 # Figure out where you are going to put the databases
 # And run mysql_install_db --force
-datadir		= /lnmpdata/data/mysql/
+datadir         = /lnmpdata/data/mysql/
 
 ######### This should also not go on the NAND #######
-tmpdir		= /lnmpdata/data/tmp/
+tmpdir          = /lnmpdata/data/tmp/
 
 skip-external-locking
 
-bind-address		= 0.0.0.0
+bind-address            = 127.0.0.1
 
 # Fine Tuning
-key_buffer		= 16M
-max_allowed_packet	= 16M
-thread_stack		= 192K
+key_buffer_size         = 16M
+max_allowed_packet      = 16M
+thread_stack            = 192K
 thread_cache_size       = 8
 
 # Here you can see queries with especially long duration
-#log_slow_queries	= /var/log/mysql/mysql-slow.log
-#long_query_time = 2
+#log_slow_queries       = /var/log/mysql/mysql-slow.log
+#long_query_time        = 2
 #log-queries-not-using-indexes
 
 # The following can be used as easy to replay backup logs or for replication.
-#server-id		= 1
-#log_bin			= /var/log/mysql/mysql-bin.log
-#expire_logs_days	= 10
-#max_binlog_size         = 100M
-#binlog_do_db		= include_database_name
-#binlog_ignore_db	= include_database_name
+#server-id              = 1
+#log_bin                = /var/log/mysql/mysql-bin.log
+#expire_logs_days       = 10
+#max_binlog_size        = 100M
+#binlog_do_db           = include_database_name
+#binlog_ignore_db       = include_database_name
 
 
 [mysqldump]
 quick
 quote-names
-max_allowed_packet	= 16M
+max_allowed_packet      = 16M
 
 [mysql]
-#no-auto-rehash	# faster start of mysql but no tab completition
+#no-auto-rehash # faster start of mysql but no tab completition
 
 [isamchk]
-key_buffer		= 16M
+key_buffer              = 16M
+
 MMM
 
-sed -e "s/theOne/$username/g" -i /etc/my.cnf
+sed -e "s/theOne/$username/g" -i /etc/mysql/my.cnf
 
-chmod 644 /etc/my.cnf
+chmod 644 /etc/mysql/my.cnf
 
-mkdir -p /var/mysql
+mkdir -p /lnmpdata/data
 
 # 数据库安装
-/usr/bin/mysql_install_db --force
+/bin/mysql_install_db --user=$username --basedir= --datadir=/lnmpdata/data/
 echo -e "\n正在初始化数据库，请稍等1分钟"
 sleep 20
 
@@ -525,6 +529,8 @@ mysqladmin -u root password 123456
 echo -e "\033[41;37m 数据库用户：root, 初始密码：123456 \033[0m"
 onmp restart
 }
+
+
 
 ############## PHP初始化 #############
 init_php()
