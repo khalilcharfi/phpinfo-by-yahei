@@ -1,5 +1,6 @@
-#!/usr/bin/env python
-#coding=utf-8
+
+# !/usr/bin/env python
+# coding=utf-8
 #
 # Openwrt Package Grabber
 #
@@ -12,7 +13,6 @@ import os
 import time
 
 # the url of package list page, end with "/"
-#baseurl = 'https://downloads.openwrt.org/snapshots/trunk/ramips/mt7620/packages/'
 baseurl = 'http://downloads.openwrt.org/releases/18.06.1/packages/mipsel_24kc/'
 
 # which directory to save all the packages, end with "/"
@@ -21,19 +21,21 @@ savedir = './' + time + '/'
 pattern = r'<a href="([^\?].*?)">'
 
 cnt = 0
+
 def fetch(url, path = ''):
     if not os.path.exists(savedir + path):
         os.makedirs(savedir + path)
     print 'fetching package list from ' + url
     content = urllib2.urlopen(url + path, timeout=15).read()
-    items = re.findall(pattern, content) for item in items:
+    items = re.findall(pattern, content)
+    for item in items:
         if item == '../':
             continue
         elif item.endswith('/'):
             fetch(url, path + item)
         else:
             cnt += 1
-            print 'downloading item %d: '%(cnt) + path + item
+            print 'downloading item %d:  ' %(cnt) + path + item
             if os.path.isfile(savedir + path + item):
                 print 'file exists, ignored.'
             else:
@@ -44,3 +46,4 @@ def fetch(url, path = ''):
 fetch(baseurl)
 
 print 'done!'
+
