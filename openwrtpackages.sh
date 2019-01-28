@@ -13,7 +13,7 @@ import time
 
 # the url of package list page, end with "/"
 #baseurl = 'https://downloads.openwrt.org/snapshots/trunk/ramips/mt7620/packages/'
-baseurl = 'https://archive.openwrt.org/snapshots/trunk/ramips/mt7620/packages/'
+baseurl = 'http://downloads.openwrt.org/releases/18.06.1/packages/mipsel_24kc/'
 
 # which directory to save all the packages, end with "/"
 time = time.strftime("%Y%m%d%H%M%S", time.localtime())
