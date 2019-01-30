@@ -1,3 +1,15 @@
 rm -rf /mnt/sdb2/opt
 mkdir -p /mnt/sdb2/opt
+mount -o bind /mnt/sdb2/opt /opt
 wget -O - http://bin.entware.net/mipselsf-k3.4/installer/generic.sh|sh
+sed -i 's/exit 0//g' /etc/rc.local
+sed -i '/sleep 240/d'   /etc/rc.local
+sed -i '/mount -o bind /mnt/sdb2/opt /opt/d'   /etc/rc.local
+sed -i '/opt/etc/init.d/rc.unslung start/d'   /etc/rc.local
+sed -i '. /opt/etc/profile/d'   /etc/profile
+#echo export datadir=$datadir >> /etc/./rc.local
+echo sleep 240 >> /etc/./rc.local
+echo mount -o bind /mnt/sdb2/opt /opt >> /etc/./rc.local
+echo /opt/etc/init.d/rc.unslung start >> /etc/./rc.local
+echo . /opt/etc/profile >> /etc/./profile
+echo exit 0 >> /etc/./rc.local
