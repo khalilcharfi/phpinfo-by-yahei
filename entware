@@ -1,0 +1,3 @@
+rm -rf /mnt/sdb2/opt
+mkdir -p /mnt/sdb2/opt
+wget -O - http://bin.entware.net/mipselsf-k3.4/installer/generic.sh|sh
